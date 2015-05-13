@@ -1,2 +1,0 @@
-# weixinDemo
-swift demo
