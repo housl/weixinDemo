@@ -16,11 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,XMPPStreamDelegate {
     
     //通道
     var xs:XMPPStream?
-    //是否开启
+    //服务器是否开启
     var isOpen = false
     //密码
     var pwd = ""
     
+    //状态代理
     var xxdl:XxDL?
     
     var ztdl: ZtDL?
@@ -32,18 +33,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate,XMPPStreamDelegate {
 
     }
     
+    //发送上线状态
     func goOnline(){
         var p = XMPPPresence()
         xs!.sendElement(p)
     }
+    
+    //发送下线状态
     func goOffline(){
         var p = XMPPPresence(type: "unavailable")
         xs!.sendElement(p)
     }
     
+    //查看服务器是否是可连接的
     func connect() -> Bool{
         buildStream()
         
+        //通道已连接
         if xs!.isConnected(){
             return true
         }
@@ -58,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,XMPPStreamDelegate {
             xs!.myJID = XMPPJID.jidWithString(user!)
             xs!.hostName = server
             
+            //密码暂时不用，先保存起来
             pwd = password!
             xs!.connectWithTimeout(5000, error: nil)
             
@@ -110,36 +117,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate,XMPPStreamDelegate {
 
     
 //MARK: - XMPPStreamDelegate
-    func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
+//TODO:连接成功 -->密码校验
+    func xmppStreamDidConnect(sender: XMPPStream!) {
         
-        println(message)
+        isOpen = true
+        xs!.authenticateWithPassword(pwd, error:nil)
         
-        if message.isChatMessage(){
-            var msg = WXMessage()
-            if message.elementForName("composing") != nil {
-                
-                msg.isComposing = true
-                
-            }
-            
-            //离线消息
-            if message.elementForName("delay") != nil{
-                msg.isDelay = true
-                
-            }
-            
-            //消息正文
-            if let body = message.elementForName("body"){
-                
-                msg.body = body.stringValue()
-            }
-            
-            msg.from = message.from().user + "@" + message.from().domain
-            
-            xxdl?.newMsg(msg)
-        }
     }
     
+//TODO:验证成功 上线
+    func xmppStreamDidAuthenticate(sender: XMPPStream!) {
+        //上线
+        goOnline()
+    }
+    
+    //TODO:收到状态改变（自己和好友的）
     func xmppStream(sender: XMPPStream!, didReceivePresence presence: XMPPPresence!) {
         let myUser = sender.myJID.user
         
@@ -166,16 +158,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate,XMPPStreamDelegate {
         
     }
     
-    func xmppStreamDidConnect(sender: XMPPStream!) {
+//TODO:收到消息
+    func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
         
-        isOpen = true
-        xs!.authenticateWithPassword(pwd, error:nil)
+        println(message)
         
+        //        聊天消息
+        if message.isChatMessage(){
+            var msg = WXMessage()
+            if message.elementForName("composing") != nil {
+                
+                msg.isComposing = true
+                
+            }
+            
+            //离线消息
+            if message.elementForName("delay") != nil{
+                msg.isDelay = true
+                
+            }
+            
+            //消息正文
+            if let body = message.elementForName("body"){
+                
+                msg.body = body.stringValue()
+            }
+            
+            msg.from = message.from().user + "@" + message.from().domain
+            
+            xxdl?.newMsg(msg)
+        }
     }
-    
-    func xmppStreamDidAuthenticate(sender: XMPPStream!) {
-        //上线
-        goOnline()
-    }
+
 }
 
