@@ -108,6 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,XMPPStreamDelegate {
     }
 
 
+    
 //MARK: - XMPPStreamDelegate
     func xmppStream(sender: XMPPStream!, didReceiveMessage message: XMPPMessage!) {
         
