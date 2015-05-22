@@ -92,7 +92,7 @@
 		2F11F2B21AEF8C0800A8957D /* BuddyListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuddyListTableViewController.swift; sourceTree = "<group>"; };
 		2F11F2B41AEF8CD900A8957D /* WXMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WXMessage.swift; sourceTree = "<group>"; };
 		2F11F2B61AEF8E5E00A8957D /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		2F1EFAEE1B00949600A337E0 /* housl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = housl.h; sourceTree = "<group>"; };
+		2F1EFAEE1B00949600A337E0 /* houslGitHub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = houslGitHub.h; sourceTree = "<group>"; };
 		2F22428D1AF07A9E007F4A74 /* wxxmpp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = wxxmpp.h; sourceTree = "<group>"; };
 		2FABDD941AF0CE6500B77E6D /* XMPPAnonymousAuthentication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPAnonymousAuthentication.h; sourceTree = "<group>"; };
 		2FABDD951AF0CE6500B77E6D /* XMPPAnonymousAuthentication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPAnonymousAuthentication.m; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 		2F11F2841AEF8AD400A8957D = {
 			isa = PBXGroup;
 			children = (
-				2F1EFAEE1B00949600A337E0 /* housl.h */,
+				2F1EFAEE1B00949600A337E0 /* houslGitHub.h */,
 				2FABDD911AF0CE6500B77E6D /* xmpp */,
 				2F22428D1AF07A9E007F4A74 /* wxxmpp.h */,
 				2FC86BF51AEF9CBB00CF2925 /* framework */,
